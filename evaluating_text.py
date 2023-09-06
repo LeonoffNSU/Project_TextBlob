@@ -1,2 +1,5 @@
 from textblob import TextBlob
-text_blob_obj = TextBlob()
+
+text = input()
+text_blob_obj = TextBlob(text)
+print(text)
