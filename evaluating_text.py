@@ -1,5 +1,4 @@
 from textblob import TextBlob
-import nltk
 
 text = input()
 text_blob_obj = TextBlob(text)
