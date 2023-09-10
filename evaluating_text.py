@@ -1,6 +1,8 @@
 from textblob import TextBlob
+from langdetect import detect
 
 text = input()
+print(detect(text))    # эта штука определит язык, print уберем
 text_blob_obj = TextBlob(text)
 text_corrected = text_blob_obj.correct()
 polarity = text_corrected.sentiment.polarity
