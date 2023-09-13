@@ -1,8 +1,18 @@
 from textblob import TextBlob
-from langdetect import detect
+from googletrans import Translator
 
 text = input()
-print(detect(text))    # эта штука определит язык, print уберем
+translator = Translator()
+detector = translator.detect(text)
+if detector.lang == 'ru':
+    translation = translator.translate(text, src='ru', dest='en')
+    text = translation.text
+    print(text)
+elif detector.lang == 'en':
+    pass
+else:
+    print('Введенный текст не относится к русскому или английскому языкам.')
+
 text_blob_obj = TextBlob(text)
 text_corrected = text_blob_obj.correct()
 polarity = text_corrected.sentiment.polarity
