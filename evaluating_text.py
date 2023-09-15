@@ -2,17 +2,22 @@ from textblob import TextBlob
 from googletrans import Translator
 
 text = input().lower()
+temporary_text = text
 word_list = text.split()
 syl_cnt = 0
+sen_cnt = 0
 translator = Translator()
 detector = translator.detect(text)
 
 if detector.lang == 'ru':
-    translation = translator.translate(text, src='ru', dest='en')
     for letter in ['а', 'о', 'у', 'э', 'ы', 'и', 'е', 'ё', 'я', 'ю']:
         syl_cnt += text.count(letter)
+    if '...' in text:
+        temporary_text = text.replace('...', '.')
+    sen_cnt = temporary_text.count('.') + temporary_text.count('!') + temporary_text.count('?')
 
-    text_translated = translation.text
+    translation = translator.translate(text, src='ru', dest='en')
+    text = translation.text
 
 elif detector.lang == 'en':
     pass
@@ -20,14 +25,18 @@ elif detector.lang == 'en':
 else:
     print('Введенный текст не относится к русскому или английскому языкам.')
 
-text_blob_obj = TextBlob(text_translated)
+text_blob_obj = TextBlob(text)
 text_corrected = text_blob_obj.correct()
 polarity = text_corrected.sentiment.polarity
 objectivity = round((1 - text_corrected.sentiment.subjectivity) * 100, 1)
 
 if detector.lang == 'en':
     for letter in ['a', 'e', 'i', 'o', 'u', 'y']:
-        syl_cnt += text_corrected.count(letter)
+        syl_cnt += str(text_corrected).count(letter)
+    temporary_text = str(text_corrected)
+    if '...' in temporary_text:
+        temporary_text = text_corrected.replace('...', '.')
+    sen_cnt = temporary_text.count('.') + temporary_text.count('!') + temporary_text.count('?')
 
 print(text_corrected)
 
@@ -38,7 +47,9 @@ elif polarity < 0:
 else:
     print('Тональность текста: нейтральная')
 
-print(f'Средняя длина слова в слогах: {syl_cnt/len(word_list)}')
+print(f'Средняя длина предложения в словах: {len(word_list) / sen_cnt}')
+print(f'Средняя длина слова в слогах: {syl_cnt / len(word_list)}')
 print(f'Объективность: {objectivity}%')
+print('Предложений:', sen_cnt)
 print('Слов:', len(word_list))
 print('Количество слогов:', syl_cnt)
