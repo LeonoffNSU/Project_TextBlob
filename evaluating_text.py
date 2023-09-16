@@ -33,10 +33,10 @@ objectivity = round((1 - text_corrected.sentiment.subjectivity) * 100, 1)
 if detector.lang == 'en':
     for letter in ['a', 'e', 'i', 'o', 'u', 'y']:
         syl_cnt += str(text_corrected).count(letter)
-    temporary_text = str(text_corrected)
-    if '...' in temporary_text:
-        temporary_text = text_corrected.replace('...', '.')
-    sen_cnt = temporary_text.count('.') + temporary_text.count('!') + temporary_text.count('?')
+temporary_text = str(text_corrected)
+if '...' in temporary_text:
+    temporary_text = text_corrected.replace('...', '.')
+sen_cnt = temporary_text.count('.') + temporary_text.count('!') + temporary_text.count('?')
 
 print(text_corrected)
 
@@ -47,9 +47,14 @@ elif polarity < 0:
 else:
     print('Тональность текста: нейтральная')
 
+if detector.lang == 'ru':
+    flesch_index = 206.835 - 1.3*(len(word_list)/sen_cnt) - 60.1*(syl_cnt/len(word_list))
+
+
 print(f'Средняя длина предложения в словах: {len(word_list) / sen_cnt}')
 print(f'Средняя длина слова в слогах: {syl_cnt / len(word_list)}')
 print(f'Объективность: {objectivity}%')
 print('Предложений:', sen_cnt)
 print('Слов:', len(word_list))
 print('Количество слогов:', syl_cnt)
+print('Индекс удобочитаемости Флеша:', flesch_index)
