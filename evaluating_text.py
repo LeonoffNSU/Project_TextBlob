@@ -38,13 +38,6 @@ if '...' in temporary_text:
     temporary_text = text_corrected.replace('...', '.')
 sen_cnt = temporary_text.count('.') + temporary_text.count('!') + temporary_text.count('?')
 
-if polarity > 0:
-    print('Тональность текста: положительная')
-elif polarity < 0:
-    print('Тональность текста: отрицательная')
-else:
-    print('Тональность текста: нейтральная')
-
 if detector.lang == 'ru':
     flesch_index = 206.835 - 1.3*(len(word_list)/sen_cnt) - 60.1*(syl_cnt/len(word_list))
 elif detector.lang == 'en':
@@ -55,7 +48,6 @@ print('Слов:', len(word_list))
 print('Количество слогов:', syl_cnt)
 print(f'Средняя длина предложения в словах: {len(word_list) / sen_cnt}')
 print(f'Средняя длина слова в слогах: {syl_cnt / len(word_list)}')
-print(f'Объективность: {objectivity}%')
 print('Индекс удобочитаемости Флеша:', flesch_index)
 
 if flesch_index >= 80:
@@ -66,3 +58,12 @@ elif flesch_index >= 25:
     print('Текст немного трудно читать')
 elif flesch_index < 25:
     print('Текст очень трудно читается')
+
+if polarity > 0:
+    print('Тональность текста: положительная')
+elif polarity < 0:
+    print('Тональность текста: отрицательная')
+else:
+    print('Тональность текста: нейтральная')
+
+print(f'Объективность: {objectivity}%')
