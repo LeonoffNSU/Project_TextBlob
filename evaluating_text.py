@@ -50,12 +50,12 @@ if detector.lang == 'ru':
 elif detector.lang == 'en':
     flesch_index = 206.835 - 1.015*(len(word_list)/sen_cnt) - 84.6*(syl_cnt/len(word_list))
 
-print(f'Средняя длина предложения в словах: {len(word_list) / sen_cnt}')
-print(f'Средняя длина слова в слогах: {syl_cnt / len(word_list)}')
-print(f'Объективность: {objectivity}%')
 print('Предложений:', sen_cnt)
 print('Слов:', len(word_list))
 print('Количество слогов:', syl_cnt)
+print(f'Средняя длина предложения в словах: {len(word_list) / sen_cnt}')
+print(f'Средняя длина слова в слогах: {syl_cnt / len(word_list)}')
+print(f'Объективность: {objectivity}%')
 print('Индекс удобочитаемости Флеша:', flesch_index)
 
 if flesch_index >= 80:
