@@ -1,3 +1,8 @@
+'''
+Leonov Kirill - 80
+Elizarev Yaroslav - 60
+'''
+
 from textblob import TextBlob
 from googletrans import Translator
 
@@ -73,3 +78,4 @@ while True:
 
     print(f'Объективность: {objectivity}%')
     break
+    
